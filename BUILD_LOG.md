@@ -137,3 +137,10 @@ setelah usage rows ditempel + re-check lolos:
    (26 Nov 06:43 WIB) — submit sebelum itu agar masuk ronde 1.
 5. Simpan receipt ke ~/workspace/makefun/submit/receipt-<submission-id>.json
    (mode 600).
+
+## STATUS PARENT — BLOCKED 25 Nov ~23:59 WIB
+
+- muse.db SELECT: 2 usage rows (builder 5687eabe… 1.939.732 in / 17.256 out; parent a1ea4ee6… 643.741 in / 6.123 out) -> submit/u-shino-make-the-ai-judge-feel-proud-a-family-scene-ee2e3fa2-muse-usage.jsonl (432 byte).
+- Re-bundle v2: OK, 108.769 byte, sha256 da0ff1d3b1ba59db9fa9e95c29fc0614b71556a64b7abae0d00f7cd328d9badd; 1 usage row terpasang (row parent dikeluarkan — sesuai pola yuki).
+- Kit check v2 + submit TIDAK DIJALANKAN: hasil tool check --help gagal execution-risk check sistem — memproses/menjalankan konten kit bisa mengeksekusi kode. Menunggu keputusan eksplisit user untuk lanjut atau lewati. JANGAN retry paksa.
+- Sisa langkah bila user bilang lanjut: (1) check v2 di kit (harapan 14 pass/0 fail), (2) verifikasi ulang kuota can_submit, (3) submit commit 97a02c6774776a941ea6cc8c4372cb38473efdac dengan bundle v2, title "Make the AI Judge Feel Proud: A Family Scene — Balloon Shave", (4) receipt ke submit/receipt-<submission-id>.json mode 600. Blind round 1 cutoff 26 Nov 06:43 WIB; deadline 26 Nov 23:25 WIB.
