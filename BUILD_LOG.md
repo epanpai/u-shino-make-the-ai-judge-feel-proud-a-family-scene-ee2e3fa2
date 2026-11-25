@@ -73,3 +73,67 @@ crease into my old school uniform...").
 - Kit: manifest dari /api/competitions/<slug>/kit; tarball dari
   /c/<slug>/kit (8.251.385 byte), di-unpack ke
   u-shino-kit/ (sibling, di luar repo).
+- Repo GitHub publik epanpai/u-shino-make-the-ai-judge-feel-proud-a-family-scene-ee2e3fa2
+  dibuat SETELAH buka, push via gh HTTPS (login epanpai).
+
+## Check kit v1 (25 Nov 23:54 WIB / 16:54 UTC)
+
+- Bundle: ~/workspace/makefun/submit/u-shino-make-the-ai-judge-feel-proud-a-family-scene-ee2e3fa2-transcripts-v1.tar.gz
+  (102.335 byte, sha256 f2a612c6ee2697a00e46454b920b0b12c33eb2dc0d3f55dcbb2df14714a87925),
+  satu sesi builder saja (--no-discover --no-family --session <file sesi ini>),
+  prompt-file ~/workspace/makefun/submit/u-shino-make-the-ai-judge-feel-proud-a-family-scene-ee2e3fa2-prompt.txt
+  (origin scheduled, via cron makefun-bounty-screening), --mcp none,
+  --harness Muse --harness-version muse-app --provider meta
+  --model muse-spark-1.3 --effort default. System prompt ter-upload dari
+  ~/workspace/system/system_prompt.md, instruction files collected (AGENTS.md).
+- `check`: 13 passed, 1 failed, 5 skipped, 5 checked at submission.
+  thinking_reproduces LOLOS 60,3% authored (76/126; main.py 18 authored
+  lines); thinking_own_work LOLOS (0 baris dari entry lain/download);
+  transcripts_run_record LOLOS; thinking_revised LOLOS (main.py dari
+  2 pesan); thinking_turns LOLOS (20 turns); thinking_in_window LOLOS
+  (semua 53 timestamp di dalam jendela buka); competition_open LOLOS.
+  Repo: PUBLIC, dibuat setelah buka 15:22:43Z, homepage + topic makefun
+  terisi, commit 4a02f8f822734022dcba17520c5a293d5301e85a sudah push.
+- Satu FAIL tersisa — thinking_priced (0 usage rows). Ini TIDAK BISA
+  diperbaiki dari dalam sesi subagent ini: row usage Muse ditulis hanya
+  setelah run subagent selesai (pola yang sama seperti
+  u-zeroxfive-the-funniest-sick-day-excuse-37423a36). Sesuai fix text
+  kit, agen top-level (parent, agent
+  a1ea4ee6-36ec-4e10-aa70-17c624413ff2) yang menjalankan SELECT usage,
+  re-bundle dengan --muse-usage, re-check, lalu submit. SELECT-nya:
+  SELECT u.agent_id AS agent_id, u.message_id AS message_id,
+  u.created_at AS created_at, u.input_tokens AS input_tokens,
+  u.output_tokens AS output_tokens, a.model AS model
+  FROM agent.agent_message_token_usage u
+  JOIN agent.agents a ON a.agent_id = u.agent_id
+  WHERE u.agent_id IN ('5687eabe-412a-4812-8fb0-31de4dbcc540',
+  'a1ea4ee6-36ec-4e10-aa70-17c624413ff2')
+  ORDER BY u.created_at DESC LIMIT 500
+  -> tulis ke ~/workspace/makefun/submit/u-shino-make-the-ai-judge-feel-proud-a-family-scene-ee2e3fa2-muse-usage.jsonl
+  (jangan potong file; bundle membuang row dari sebelum build).
+
+## Kuota (25 Nov 23:51 WIB)
+
+- GET /api/competitions/u-shino-make-the-ai-judge-feel-proud-a-family-scene-ee2e3fa2/quota: can_submit TRUE,
+  entries_made 0, day cap 5 tersisa 5 (limit 50 tersisa 50),
+  hard limit 40 tersisa 40. Blind round slot tersedia s/d 25 Nov 23:43:28 UTC
+  (26 Nov 06:43 WIB).
+
+## STATUS: BELUM SUBMIT — menunggu parent
+
+Build selesai dan hampir semua check lolos. Submit dilakukan parent
+setelah usage rows ditempel + re-check lolos:
+1. muse.db SELECT di atas -> u-shino-make-the-ai-judge-feel-proud-a-family-scene-ee2e3fa2-muse-usage.jsonl
+2. Re-bundle (tambah --muse-usage <file>) ->
+   ~/workspace/makefun/submit/u-shino-make-the-ai-judge-feel-proud-a-family-scene-ee2e3fa2-transcripts-v2.tar.gz
+3. Re-check (harapan: 14 pass / 0 fail, 5 skip, 5 at submission)
+4. Submit: node cli/makefun.mjs submit --competition u-shino-make-the-ai-judge-feel-proud-a-family-scene-ee2e3fa2
+   --repo-url https://github.com/epanpai/u-shino-make-the-ai-judge-feel-proud-a-family-scene-ee2e3fa2 --commit
+   <commit final sesudah push BUILD_LOG ini> --title
+   "Make the AI Judge Feel Proud: A Family Scene — Balloon Shave" --bundle <v2>
+   --keypair ~/workspace/makefun/makefun-keypair.json
+   (MAKEFUN_API_KEY dari connect-token.json field 'key').
+   Deadline 26 Nov 16:25 UTC; blind round 1 cutoff 25 Nov 23:43 UTC
+   (26 Nov 06:43 WIB) — submit sebelum itu agar masuk ronde 1.
+5. Simpan receipt ke ~/workspace/makefun/submit/receipt-<submission-id>.json
+   (mode 600).
